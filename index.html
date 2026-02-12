@@ -3,129 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ma Valentine ?</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka+One&display=swap" rel="stylesheet">
+    <title>Ma Valentine ? 🐣</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #ffebee; /* Rose pâle */
-            font-family: 'Pacifico', cursive;
-            text-align: center;
-            overflow-x: hidden;
-            transition: background-color 0.5s ease;
+            margin: 0; background-color: #ffebee; 
+            font-family: 'Pacifico', cursive; text-align: center;
+            display: flex; justify-content: center; align-items: center; 
+            min-height: 100vh; overflow: hidden;
         }
 
-        .container {
-            max-width: 600px;
-            padding: 20px;
-            z-index: 2;
+        .poussin {
+            position: absolute; font-size: 25px;
+            user-select: none; z-index: 0;
+            animation: flottement 10s linear infinite;
+            opacity: 0.6;
+        }
+        @keyframes flottement {
+            from { transform: translateY(100vh) rotate(0deg); }
+            to { transform: translateY(-10vh) rotate(360deg); }
         }
 
-        #main-photo {
-            width: 250px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
+        .container { max-width: 90%; z-index: 2; position: relative; }
+        #main-photo { width: 280px; border-radius: 20px; margin-bottom: 20px; border: 8px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        h1 { color: #d81b60; font-size: 2.2rem; text-shadow: 2px 2px white; }
+        .buttons { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+        button { padding: 15px 30px; border: none; border-radius: 50px; cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
+        #btn-yes { background-color: #ff4081; color: white; z-index: 10; }
+        #btn-no { background-color: #ffffff; color: #d81b60; z-index: 10; }
 
-        h1 {
-            color: #d81b60;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px #fff;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        button {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            font-family: 'Fredoka One', cursive;
-        }
-
-        #btn-yes {
-            background-color: #ff4081;
-            color: white;
-            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
-        }
-
-        #btn-no {
-            background-color: #fce4ec;
-            color: #ad1457;
-        }
-
-        /* Styles pour la page de succès */
-        .hidden { display: none; }
+        .hidden { display: none !important; }
         
-        #success-page {
-            background-color: #f06292; /* Rose plus foncé */
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow-y: auto;
-            padding: 20px;
+        /* LA PHOTO 11 (Celle qui grandit) */
+        #angry-photo { 
+            position: fixed; 
+            top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); /* Centrée au milieu */
+            width: 0px; /* Commence invisible */
+            opacity: 0; 
+            transition: all 0.3s ease; 
+            z-index: 100; /* Par dessus tout */
+            pointer-events: none; /* Pour ne pas bloquer les clics sur les boutons */
+            border-radius: 20px;
         }
 
-        .postcard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            max-width: 800px;
-            background: white;
-            padding: 20px;
-            border: 10px solid #fff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transform: rotate(-2deg);
-        }
-
-        .postcard-grid img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border: 2px solid #eee;
-        }
-
-        #angry-photo {
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            width: 100px;
-            transition: all 0.5s ease;
-            z-index: 1;
-            opacity: 0;
-        }
-
-        #yay-gif {
-            width: 200px;
-            margin-top: 20px;
-        }
+        #success-page { background-color: #f06292; position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; z-index: 200; }
+        .postcard { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: white; padding: 15px; border: 8px solid white; transform: rotate(-1deg); box-shadow: 0 15px 30px rgba(0,0,0,0.3); max-width: 500px; }
+        .postcard img { width: 100%; height: 150px; object-fit: cover; }
+        #yay-gif { width: 220px; margin-top: 20px; border-radius: 15px; border: 5px solid white; }
     </style>
 </head>
 <body>
 
-    <div class="container" id="question-container">
-        <img src="photo1.png" alt="Moi" id="main-photo">
+    <script>
+        for (let i = 0; i < 30; i++) {
+            let p = document.createElement('div');
+            p.className = 'poussin'; p.innerText = '🐣';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDelay = Math.random() * 10 + 's';
+            document.body.appendChild(p);
+        }
+    </script>
+
+    <div id="question-container" class="container">
+        <img src="photo1.png" id="main-photo">
         <h1>Accepterais-tu d'être mon Valentin ce 14 février ?</h1>
         <div class="buttons">
             <button id="btn-yes">Ouiiiii</button>
@@ -133,11 +74,11 @@
         </div>
     </div>
 
-    <img src="photo11.png" id="angry-photo" alt="Humour">
+    <img src="photo11.png" id="angry-photo">
 
     <div id="success-page" class="hidden">
-        <h1 style="color: white; text-shadow: none;">YAY ! ❤️</h1>
-        <div class="postcard-grid">
+        <h1 style="color: white; font-size: 3rem;">YAY ! ❤️ 🐣</h1>
+        <div class="postcard">
             <img src="photo2.png">
             <img src="photo3.png">
             <img src="photo4.png">
@@ -148,62 +89,36 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-
     <script>
         const btnNo = document.getElementById('btn-no');
         const btnYes = document.getElementById('btn-yes');
         const angryPhoto = document.getElementById('angry-photo');
+        const noTexts = ["Tu es sûr ?", "Certain ?", "Attention pousspouss", "Clique sur l'autre !", "Réfléchis mon coeur", "Reconsidère..."];
         
-        const noTexts = [
-            "Tu es sûr ?",
-            "Tu en es certain ?",
-            "Attention pousspouss",
-            "Essaye de cliquer sur l'autre bulle plutôt",
-            "Je pense que tu devrais réfléchir mon coeur",
-            "Reconsidère la chose"
-        ];
-
-        let noCount = 0;
-        let yesSize = 1.2;
-        let noSize = 1.2;
-        let angryPhotoSize = 100;
+        let count = 0;
+        let yesScale = 1;
+        let angryWidth = 0;
 
         btnNo.addEventListener('click', () => {
-            // Changer le texte
-            btnNo.innerText = noTexts[Math.min(noCount, noTexts.length - 1)];
+            btnNo.innerText = noTexts[Math.min(count, noTexts.length - 1)];
             
-            // Changer les tailles
-            yesSize += 0.4;
-            noSize -= 0.1;
-            btnYes.style.transform = `scale(${yesSize})`;
-            btnNo.style.transform = `scale(${Math.max(noSize, 0.5)})`;
-
-            // Faire apparaître et grandir la photo 11
-            noCount++;
+            // Le bouton OUI grossit
+            yesScale += 0.5;
+            btnYes.style.transform = `scale(${yesScale})`;
+            
+            // La PHOTO 11 apparaît et grossit au centre
             angryPhoto.style.opacity = "1";
-            angryPhotoSize += 50;
-            angryPhoto.style.width = angryPhotoSize + "px";
+            angryWidth += 100; // Elle gagne 100px à chaque clic
+            angryPhoto.style.width = angryWidth + "px";
+            
+            count++;
         });
 
         btnYes.addEventListener('click', () => {
-            document.getElementById('question-container').classList.add('hidden');
-            angryPhoto.classList.add('hidden');
             document.getElementById('success-page').classList.remove('hidden');
-            document.body.style.backgroundColor = "#f06292";
-
-            // Lancer les confettis
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
-
-            // Faire apparaître le GIF après 10 secondes
+            confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
             setTimeout(() => {
-                const gif = document.createElement('img');
-                gif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJid2p6ZndueGZ3eGZ3eGZ3eGZ3eGZ3eGZ3eGZ3eGZ3&ep=v1_gifs_search&rid=giphy.gif&ct=g"; // Lien vers un gif YAY (à adapter)
-                gif.id = "yay-gif";
-                document.getElementById('gif-container').appendChild(gif);
+                document.getElementById('gif-container').innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJid2p6ZndueGZ3eGZ3eGZ3eGZ3eGZ3eGZ3eGZ3eGZ3&ep=v1_gifs_search&rid=giphy.gif&ct=g" id="yay-gif">';
             }, 10000);
         });
     </script>
